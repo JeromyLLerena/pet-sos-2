@@ -41,18 +41,11 @@ class MessageController extends Controller
 		return response()->json(['success' => 'Message created'], 200);
 	}
 
-	public function getConversation(Request $request, $another_user_id)
-	{/*
-		$messages = $this->message_repository->getUserConversation($request->user()->id, $another_user_id);
-		$another_user = $this->user_repository->find($another_user_id);
+	public function getConversation(Request $request, $root_id)
+	{
+		$messages = $this->message_repository->getUserConversation($request->user()->id, $root_id);
 
-		return response()->json([
-			'success' => [
-				'another_user' => $another_user,
-				'messages' => $messages
-			]
-		], 200);
-		*/
+		return response()->json(['success' => ['messages' => $messages]], 200);
 	}
 
 	public function getLastestMessages(Request $request)

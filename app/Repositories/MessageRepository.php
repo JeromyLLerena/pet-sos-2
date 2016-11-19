@@ -93,4 +93,36 @@ class MessageRepository extends EloquentRepository
 
 		return $last_messages;
 	}
+
+	public function getUserConversation($user_id, $root_id)
+	{
+		$tmp = $this->model
+		            ->where('root_id', $root_id)
+		            ->where(function($query) use ($user_id){
+		            	$query->where('user_id_from', $user_id)
+		            	      ->orWhere('user_id_to', $user_id);
+		            })->first();
+
+		if ($tmp) {
+			$this->setReadConversation($root_id);
+
+			return $this->model
+			        ->where('root_id', $root_id)
+			        ->where(function($query) use ($user_id){
+			        	$query->where('user_id_from', $user_id)
+			        	      ->orWhere('user_id_to', $user_id);
+			        })
+			        ->orderBy('timestamp', 'desc')
+			        ->get();
+		}
+
+		return [];
+	}
+
+	public function setReadConversation($root_id)
+	{
+		$this->model->where('root_id', $root_id)
+		            ->where('read', false)
+		            ->update(['read' => true]);
+	}
 }

@@ -36,8 +36,7 @@ class UserController extends Controller
 			'name'     => ['required'],
 			'username' => ['required'],
 			'user_type' => ['required'],
-			'district' => ['required'],
-			''
+			'district' => ['required']
 		]);
 
 		if ($validator->fails()) {

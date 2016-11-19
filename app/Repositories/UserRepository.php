@@ -64,8 +64,13 @@ class UserRepository extends EloquentRepository
 
 	public function getUserPosts($user_id)
 	{
-		$res = $this->model->find($user_id)->posts()->with('user')->get();
+		$res = $this->model->find($user_id)->posts;
 
 		return $res;
+	}
+
+	public function getUserPets($user_id)
+	{
+		return $this->model->find($user_id)->pets;
 	}
 }

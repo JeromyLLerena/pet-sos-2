@@ -31,4 +31,9 @@ class EloquentRepository
 
 		return $response;
 	}
+
+	public function getModel($id)
+	{
+		return $this->model;
+	}
 }

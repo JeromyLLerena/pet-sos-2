@@ -47,8 +47,13 @@ Route::group(['namespace' => 'Api'], function(){
 
 		Route::group(['prefix' => 'messages', 'namespace' => 'Message', 'middleware' => 'jwt.auth'], function(){
 			Route::post('/', ['uses' => 'MessageController@sendMessage']);
-			Route::get('/{another_user_id}', ['uses' => 'MessageController@getConversation']);
+			Route::get('/{root_id}', ['uses' => 'MessageController@getConversation']);
 			Route::get('/', ['uses' => 'MessageController@getLastestMessages']);
+		});
+
+		Route::group(['prefix' => 'pets', 'namespace' => 'Pet', 'middleware' => 'jwt.auth'], function(){
+			Route::post('/', ['uses' => 'PetController@create']);
+			Route::get('/', ['uses' => 'PetController@getAllUserPets']);
 		});
 	});
 });

@@ -17,4 +17,9 @@ class Post extends Model
 	{
 		return $this->belongsTo('App\Models\PostType', 'post_type_id');
 	}
+
+	public function pet()
+	{
+		return $this->belongsTo('App\Models\Pet', 'pet_id');
+	}
 }

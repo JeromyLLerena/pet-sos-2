@@ -19,7 +19,7 @@ class PostRepository extends EloquentRepository
 	{
 		return $this->model->all()->transform(function($item, $key){
 
-			return $item->with(['user', 'post_type'])->first();
+			return $item->with(['user', 'pet', 'post_type'])->first();
 		});
 	}
 
@@ -42,6 +42,10 @@ class PostRepository extends EloquentRepository
 
 		if (array_key_exists('post_type_id', $data)) {
 			$post->post_type_id = $data['post_type_id'];
+		}
+
+		if (array_key_exists('pet_id', $data)) {
+			$post->pet_id = $data['pet_id'];
 		}
 
 		if (array_key_exists('status', $data)) {

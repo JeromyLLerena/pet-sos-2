@@ -43,7 +43,8 @@ class PostController extends Controller
 
 		$validator = Validator::make($request->all(), [
 			'description' => ['required'],
-			'post_type' => ['required','numeric']
+			'post_type' => ['required','numeric'],
+			'pet' => ['required', 'exists:pets,id']
 		]);
 
 		if ($validator->fails()) {
@@ -53,6 +54,7 @@ class PostController extends Controller
 		$data = [
 			'description' => $request->get('description'),
 			'post_type_id' => $request->get('post_type'),
+			'pet_id' => $request->get('pet'),
 			'user_id' => $current_user->id,
 		];
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Race;
 
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 use App\Repositories\RaceRepository;
 
 class RaceController extends Controller
@@ -19,8 +19,8 @@ class RaceController extends Controller
 		$this->race_repository = $race_repository;
 	}
 
-	public function all()
+	public function getRaces(Request $request)
 	{
-		return response()->json(['success' => ['races' => $this->race_repository->all()]], 200);
+		return response()->json(['success' => ['races' => $this->race_repository->getRaces($filter = $request->get('animal'))]], 200);
 	}
 }

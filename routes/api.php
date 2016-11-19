@@ -24,19 +24,19 @@ Route::group(['namespace' => 'Api'], function(){
 		Route::group(['prefix' => 'users', 'namespace' => 'User'], function(){
 			Route::post('/', ['uses' => 'UserController@create']);
 		});
-		Route::group(['prefix' => 'districts', 'namespace' => 'District', 'middleware' => 'jwt.auth'], function(){
+		Route::group(['prefix' => 'districts', 'namespace' => 'District'], function(){
 			Route::get('/', ['uses' => 'DistrictController@all']);
 		});
-		Route::group(['prefix' => 'animals', 'namespace' => 'Animal', 'middleware' => 'jwt.auth'], function(){
+		Route::group(['prefix' => 'animals', 'namespace' => 'Animal'], function(){
 			Route::get('/', ['uses' => 'AnimalController@all']);
 		});
-		Route::group(['prefix' => 'races', 'namespace' => 'Race', 'middleware' => 'jwt.auth'], function(){
-			Route::get('/', ['uses' => 'RaceController@all']);
+		Route::group(['prefix' => 'races', 'namespace' => 'Race'], function(){
+			Route::get('/', ['uses' => 'RaceController@getRaces']);
 		});
 		Route::group(['prefix' => 'post_types', 'namespace' => 'PostType', 'middleware' => 'jwt.auth'], function(){
 			Route::get('/', ['uses' => 'PostTypeController@all']);
 		});
-		Route::group(['prefix' => 'user_types', 'namespace' => 'UserType', 'middleware' => 'jwt.auth'], function(){
+		Route::group(['prefix' => 'user_types', 'namespace' => 'UserType'], function(){
 			Route::get('/', ['uses' => 'UserTypeController@all']);
 		});
 		Route::group(['prefix' => 'posts', 'namespace' => 'Post', 'middleware' => 'jwt.auth'], function(){

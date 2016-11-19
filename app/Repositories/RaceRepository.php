@@ -22,4 +22,9 @@ class RaceRepository
 			return $obj;
 		});
 	}
+
+	public function getRaces($filter = null)
+	{
+		return $filter ? $this->model->where('animal_id', $filter)->get() : $this->all();
+	}
 }

@@ -37,4 +37,9 @@ class User extends Authenticatable
 	{
 		return $this->hasMany('App\Models\Pet', 'user_id');
 	}
+
+	public function district()
+	{
+		return $this->belongsTo('App\Models\District', 'district_id');
+	}
 }

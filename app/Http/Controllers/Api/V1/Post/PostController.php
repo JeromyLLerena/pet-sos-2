@@ -62,4 +62,9 @@ class PostController extends Controller
 
 		return response()->json(['success' => 'Post created'], 200);
 	}
+
+	public function getPostComments(Request $request, $post_id)
+	{
+		return response()->json(['success' => ['comments' => [$this->post_repository->getModel($post_id)->comments]], 200);
+	}
 }

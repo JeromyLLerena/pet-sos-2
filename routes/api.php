@@ -44,6 +44,7 @@ Route::group(['namespace' => 'Api'], function(){
 			Route::get('/', ['uses' => 'PostController@all']);
 			Route::post('/', ['uses' => 'PostController@create']);
 			Route::get('/me', ['uses' => 'PostController@getUserPosts']);
+			Route::get('/{post_id}/comments', ['uses' => 'PostController@getPostComments']);
 		});
 
 		Route::group(['prefix' => 'messages', 'namespace' => 'Message', 'middleware' => 'jwt.auth'], function(){
@@ -55,6 +56,10 @@ Route::group(['namespace' => 'Api'], function(){
 		Route::group(['prefix' => 'pets', 'namespace' => 'Pet', 'middleware' => 'jwt.auth'], function(){
 			Route::post('/', ['uses' => 'PetController@create']);
 			Route::get('/', ['uses' => 'PetController@getAllUserPets']);
+		});
+
+		Route::group(['prefix' => 'comments', 'namespace' => 'Comment', 'middleware' => 'jwt.auth'], function(){
+			Route::post('/', ['uses' => 'CommentController@create']);
 		});
 	});
 });

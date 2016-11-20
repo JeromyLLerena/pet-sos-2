@@ -34,6 +34,6 @@ class EloquentRepository
 
 	public function getModel($id)
 	{
-		return $this->model;
+		return $this->model->find($id);
 	}
 }

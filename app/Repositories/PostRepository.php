@@ -17,10 +17,7 @@ class PostRepository extends EloquentRepository
 
 	public function all()
 	{
-		return $this->model->all()->transform(function($item, $key){
-
-			return $item->with(['user', 'pet', 'post_type'])->first();
-		});
+		return $this->model->orderBy('created_at', 'desc')->with(['user', 'pet', 'post_type'])->get();
 	}
 
 	public function save($data)

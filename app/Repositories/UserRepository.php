@@ -64,7 +64,7 @@ class UserRepository extends EloquentRepository
 
 	public function getUserPosts($user_id)
 	{
-		$res = $this->model->find($user_id)->posts()->with('pet')->get();
+		$res = $this->model->find($user_id)->posts()->orderBy('created_at', 'desc')->with(['pet', 'post_type'])->get();
 
 		return $res;
 	}

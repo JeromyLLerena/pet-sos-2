@@ -79,6 +79,6 @@ class UserController extends Controller
 
 		$user_model = $this->user_repository->getModel($token_user->id);
 
-		return response()->json(['success' => ['user' => $user_model->with('district')->get()]], 200);
+		return response()->json(['success' => ['user' => $user_model->with('district')->first()]], 200);
 	}
 }

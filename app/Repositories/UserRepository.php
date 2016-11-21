@@ -64,7 +64,12 @@ class UserRepository extends EloquentRepository
 
 	public function getUserPosts($user_id)
 	{
-		$res = $this->model->find($user_id)->posts()->orderBy('created_at', 'desc')->with(['pet', 'post_type'])->get();
+		$res = $this->model->find($user_id)->posts()->orderBy('created_at', 'desc')->with(['pet', 'post_type'])->get()->transform(function($item, $key){
+				$tmp = $item;
+				$tmp->comments_count = $item->comments()->count();
+
+				return $tmp;
+		});
 
 		return $res;
 	}

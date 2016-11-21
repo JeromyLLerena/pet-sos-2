@@ -67,6 +67,6 @@ class PostController extends Controller
 	{
 		$post = $this->post_repository->getModel($post_id);
 
-		return response()->json(['success' => ['post' => $post, 'comments' => $post->comments()->with('user')->get()]], 200);
+		return response()->json(['success' => ['post' => $post->with(['user', 'pet'])->where('id', $post_id)->first(), 'comments' => $post->comments()->with('user')->get()]], 200);
 	}
 }

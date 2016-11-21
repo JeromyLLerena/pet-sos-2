@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Api'], function(){
 		Route::group(['prefix' => 'users', 'namespace' => 'User'], function(){
 			Route::post('/', ['uses' => 'UserController@create']);
 			Route::get('/', ['uses' => 'UserController@getUser', 'middleware' => 'jwt.auth']);
+			Route::post('/update', ['uses' => 'UserController@update', 'middleware' => 'jwt.auth']);
 		});
 		Route::group(['prefix' => 'districts', 'namespace' => 'District'], function(){
 			Route::get('/', ['uses' => 'DistrictController@all']);

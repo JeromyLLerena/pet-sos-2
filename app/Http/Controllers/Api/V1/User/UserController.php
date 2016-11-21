@@ -31,12 +31,12 @@ class UserController extends Controller
 	public function create(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-			'email'    => ['required', 'email', 'unique:users,email'],
-			'password' => ['required', 'min:6'],
-			'name'     => ['required'],
-			'username' => ['required'],
+			'email'     => ['required', 'email', 'unique:users,email'],
+			'password'  => ['required', 'min:6'],
+			'name'      => ['required'],
+			'username'  => ['required'],
 			'user_type' => ['required'],
-			'district' => ['required']
+			'district'  => ['required']
 		]);
 
 		if ($validator->fails()) {
@@ -80,5 +80,40 @@ class UserController extends Controller
 		$user_model = $this->user_repository->getModel($token_user->id);
 
 		return response()->json(['success' => ['user' => $user_model->with('district')->first()]], 200);
+	}
+
+	public function update(Request $request)
+	{
+		$user_id = $request->user()->id;
+
+		$validator = Validator::make($request->all(), [
+			'email'     => ['required', 'email', 'unique:users,email,' . $user_id],
+			'password'  => ['min:6'],
+			'name'      => ['required'],
+			'username'  => ['required'],
+			'user_type' => ['required'],
+			'district'  => ['required']
+		]);
+
+		if ($validator->fails()) {
+			return response()->json(['error' => $validator->errors()->getMessages()], 400);
+		}
+
+		$data = [
+			'id' => $user_id,
+			'name' => $request->get('name'),
+			'email' => $request->get('email'),
+			'user_type_id' => $request->get('user_type'),
+			'district_id'=> $request->get('district'),
+			'username' => $request->get('username')
+		];
+
+		if ($request->has('password')) {
+			$data['password'] = app('hash')->make($request->get('password'));
+		}
+
+		$user = $this->user_repository->save($data);
+
+		return response()->json(['success' => 'User updated'], 200);
 	}
 }

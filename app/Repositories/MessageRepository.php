@@ -113,7 +113,7 @@ class MessageRepository extends EloquentRepository
 			        	$query->where('user_id_from', $user_id)
 			        	      ->orWhere('user_id_to', $user_id);
 			        })
-			        ->orderBy('timestamp', 'desc')
+			        ->orderBy('timestamp', 'asc')
 			        ->get();
 		}
 

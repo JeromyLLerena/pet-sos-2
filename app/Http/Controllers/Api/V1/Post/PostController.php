@@ -83,4 +83,13 @@ class PostController extends Controller
 
 		return response()->json(['success' => 'Post deleted'], 200);
 	}
+
+	public function getAnotherUserPosts(Request $request, $user_id)
+	{
+		$current_user = $request->user();
+
+		$posts = $this->user_repository->getUserPosts($user_id);
+
+		return response()->json(['success' => ['posts' => $posts]], 200);
+	}
 }

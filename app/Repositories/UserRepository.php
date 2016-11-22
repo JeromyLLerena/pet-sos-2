@@ -81,6 +81,10 @@ class UserRepository extends EloquentRepository
 
 	public function get($user_id)
 	{
-		return $this->model->find($user_id)->with(['user_type', 'district'])->where('id', $user_id)->first();
+		$res = $this->model->find($user_id)->with(['user_type', 'district'])->where('id', $user_id)->first();
+
+		$res ->posts = $res->posts()->orderBy('created_at', 'desc')->get();
+
+		return $res;
 	}
 }

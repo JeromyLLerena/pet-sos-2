@@ -26,6 +26,7 @@ Route::group(['namespace' => 'Api'], function(){
 			Route::get('/', ['uses' => 'UserController@getUser', 'middleware' => 'jwt.auth']);
 			Route::post('/update', ['uses' => 'UserController@update', 'middleware' => 'jwt.auth']);
 			Route::get('/{id}', ['uses' => 'UserController@getAnotherUser', 'middleware' => 'jwt.auth']);
+			Route::get('/{id}/posts', ['uses' => 'UserController@getAnotherUserPosts', 'middleware' => 'jwt.auth']);
 		});
 		Route::group(['prefix' => 'districts', 'namespace' => 'District'], function(){
 			Route::get('/', ['uses' => 'DistrictController@all']);

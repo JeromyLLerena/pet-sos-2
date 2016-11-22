@@ -77,9 +77,9 @@ class UserController extends Controller
 	{
 		$token_user = $request->user();
 
-		$user_model = $this->user_repository->getModel($token_user->id);
+		$data = $this->user_repository->get($token_user->id);
 
-		return response()->json(['success' => ['user' => $user_model->with('district')->first()]], 200);
+		return response()->json(['success' => ['user' => $data['user']]], 200);
 	}
 
 	public function update(Request $request)

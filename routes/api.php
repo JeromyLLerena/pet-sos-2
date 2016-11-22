@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Api'], function(){
 			Route::post('/', ['uses' => 'PostController@create']);
 			Route::get('/me', ['uses' => 'PostController@getUserPosts']);
 			Route::get('/{post_id}/comments', ['uses' => 'PostController@getPostComments']);
+			Route::get('/{post_id}/delete', ['uses' => 'PostController@delete']);
 		});
 
 		Route::group(['prefix' => 'messages', 'namespace' => 'Message', 'middleware' => 'jwt.auth'], function(){

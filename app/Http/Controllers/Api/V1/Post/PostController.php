@@ -76,4 +76,11 @@ class PostController extends Controller
 
 		return response()->json(['success' => ['post' => $post->with(['user', 'pet'])->where('id', $post_id)->first(), 'comments' => $post->comments()->with('user')->get()]], 200);
 	}
+
+	public function delete(Request $request, $post_id)
+	{
+		$this->post_repository->delete($post_id);
+
+		return response()->json(['success' => 'Post deleted'], 200);
+	}
 }

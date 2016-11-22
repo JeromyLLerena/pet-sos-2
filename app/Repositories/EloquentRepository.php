@@ -20,13 +20,13 @@ class EloquentRepository
 
 	public function delete($id)
 	{
-		$admin = $this->find($id);
+		$entity = $this->getModel($id);
 
-		if ($admin) {
-			$admin->delete();
+		if ($entity) {
+			$entity->delete();
 			$response = $id;
 		} else {
-			$response = $admin;
+			$response = $entity;
 		}
 
 		return $response;

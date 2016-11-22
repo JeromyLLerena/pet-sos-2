@@ -78,4 +78,9 @@ class UserRepository extends EloquentRepository
 	{
 		return $this->model->find($user_id)->pets;
 	}
+
+	public function get($user_id)
+	{
+		return $this->model->find($user_id)->with(['user_type', 'district'])->where('id', $user_id)->first();
+	}
 }

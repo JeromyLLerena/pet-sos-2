@@ -116,4 +116,11 @@ class UserController extends Controller
 
 		return response()->json(['success' => 'User updated'], 200);
 	}
+
+	public function getAnotherUser(Request $request, $id)
+	{
+		$user = $this->user_repository->get($id);
+
+		return response()->json(['success' => ['user' => $user]], 200);
+	}
 }

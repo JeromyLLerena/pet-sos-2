@@ -42,4 +42,8 @@ class User extends Authenticatable
 	{
 		return $this->belongsTo('App\Models\District', 'district_id');
 	}
+
+	public function user_type(){
+		return $this->belongsTo('App\Models\UserType', 'user_type_id');
+	}
 }

@@ -85,7 +85,8 @@ class MessageRepository extends EloquentRepository
 		                      ->transform(function($item, $key) use ($user_id) {
 		                        	$tmp = (object) [];
 		                        	$msj = $this->model->find($item);
-		                        	$msj->user_id_from == $user_id ? $msj->receptor : $msj->emisor;
+		                        	$msj->user = $msj->user_id_from == $user_id ? $msj->receptor : $msj->emisor;
+		                        	unset($msj->receptor, $msj->emisor);
 		                        	$tmp->message = $msj;
 
 		                        	return $tmp;

@@ -15,9 +15,31 @@ class PostRepository extends EloquentRepository
 		$this->model = new Post;
 	}
 
-	public function all()
+	public function getApplicationPosts($filters)
 	{
-		return $this->model->orderBy('created_at', 'desc')->with(['user', 'pet', 'post_type'])->get()->transform(function($item, $key){
+		$res = $this->model->orderBy('created_at', 'desc')->with(['user', 'pet', 'post_type']);
+
+		if ($filters['keyword']) {
+			$res = $res->where('keyword', 'like', '%' . $filters['keyword'] . '%');
+		}
+
+		if ($filters['pet_race']) {
+			$res = $res->whereHas('pet', function($query) use ($filters){
+				$query->where('race_id', $filters['pet_race']);
+			});
+		}
+
+		if ($filters['pet_height']) {
+			$res = $res->whereHas('pet', function($query) use ($filters){
+				$query->where('height', $filters['pet_height']);
+			});
+		}
+
+		if ($filters['post_type']) {
+			$res = $res->where('post_type_id', $filters['post_type']);
+		}
+
+		return $res->get()->transform(function($item, $key){
 				$tmp = $item;
 				$tmp->comments_count = $item->comments()->count();
 

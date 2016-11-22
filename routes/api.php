@@ -42,7 +42,7 @@ Route::group(['namespace' => 'Api'], function(){
 			Route::get('/', ['uses' => 'UserTypeController@all']);
 		});
 		Route::group(['prefix' => 'posts', 'namespace' => 'Post', 'middleware' => 'jwt.auth'], function(){
-			Route::get('/', ['uses' => 'PostController@all']);
+			Route::get('/', ['uses' => 'PostController@getApplicationPosts']);
 			Route::post('/', ['uses' => 'PostController@create']);
 			Route::get('/me', ['uses' => 'PostController@getUserPosts']);
 			Route::get('/{post_id}/comments', ['uses' => 'PostController@getPostComments']);

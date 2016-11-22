@@ -12,4 +12,9 @@ class Pet extends Model
 	{
 		return $this->belongsTo('App\Models\User', 'user_id');
 	}
+
+	public function race()
+	{
+		return $this->belongsTo('App\Models\Race', 'race_id');
+	}
 }

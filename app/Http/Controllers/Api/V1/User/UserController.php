@@ -119,8 +119,8 @@ class UserController extends Controller
 
 	public function getAnotherUser(Request $request, $id)
 	{
-		$user = $this->user_repository->get($id);
+		$data = $this->user_repository->get($id);
 
-		return response()->json(['success' => ['user' => $user]], 200);
+		return response()->json(['success' => ['user' => $data['user'], 'posts' => $data['posts']]], 200);
 	}
 }

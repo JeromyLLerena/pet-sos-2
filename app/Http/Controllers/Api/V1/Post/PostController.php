@@ -26,10 +26,11 @@ class PostController extends Controller
 	public function getApplicationPosts(Request $request)
 	{
 		$filters = [
-			'keyword' => $request->has('keyword') ? $request->get('keyword') : null,
-			'pet_race' => $request->has('pet_race') ? $request->get('pet_race') : null,
-			'pet_height' => $request->has('pet_height') ? $request->get('pet_height') : null,
-			'post_type' => $request->has('post_type') ? $request->get('post_type') : null
+			'animal' => $request->input('animal', null),
+			'keyword' => $request->input('keyword', null),
+			'pet_race' => $request->input('pet_race', null),
+			'pet_height' => $request->input('pet_height', null),
+			'post_type' => $request->input('post_type', null)
 		];
 
 		return response()->json(['success' => ['posts' => $this->post_repository->getApplicationPosts($filters)]], 200);

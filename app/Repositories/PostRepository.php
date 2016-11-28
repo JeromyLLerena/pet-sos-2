@@ -20,7 +20,15 @@ class PostRepository extends EloquentRepository
 		$res = $this->model->orderBy('created_at', 'desc')->with(['user', 'pet', 'post_type']);
 
 		if ($filters['keyword']) {
-			$res = $res->where('keyword', 'like', '%' . $filters['keyword'] . '%');
+			$res = $res->where('description', 'like', '%' . $filters['keyword'] . '%');
+		}
+
+		if ($filters['animal'] && !$filters['pet_race']) {
+			$res = $res->whereHas('pet', function($query) use ($filters){
+				$query->whereHas('race', function($second_query) use ($filters){
+					$second_query->where('animal_id', $filters['animal']);
+				});
+			});
 		}
 
 		if ($filters['pet_race']) {
